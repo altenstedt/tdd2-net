@@ -2,6 +2,6 @@ namespace Commerce
 {
     public class Banana : IItem
     {
-        public double Cost => 44.55;
+        public Money Cost => new Money(44.55);
     }
 }

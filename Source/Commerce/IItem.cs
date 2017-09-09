@@ -2,6 +2,6 @@ namespace Commerce
 {
     public interface IItem
     {
-        double Cost { get; }
+        Money Cost { get; }
     }
 }

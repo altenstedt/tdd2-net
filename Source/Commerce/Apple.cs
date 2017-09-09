@@ -2,6 +2,6 @@ namespace Commerce
 {
     public class Apple : IItem
     {
-        public double Cost => 13.76;
+        public Money Cost => new Money(13.76);
     }
 }

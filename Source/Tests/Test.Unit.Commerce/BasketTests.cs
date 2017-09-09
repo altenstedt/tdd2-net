@@ -23,7 +23,7 @@ namespace Test.Unit.Commerce
         {
             var basket = new Basket();
 
-            Assert.Equal(0, basket.Total);
+            Assert.Equal(Money.Zero, basket.Total);
         }
 
         [Fact]
@@ -39,6 +39,21 @@ namespace Test.Unit.Commerce
         }
 
         [Fact]
+        public void ShouldTotalForManyItems()
+        {
+            var basket = new Basket();
+
+            const int Count = 100;
+            for (var i = 0; i < Count; i++) 
+            {
+                basket.Add(new Apple());
+            }
+
+            var apple = new Apple();
+            Assert.Equal(apple.Cost * Count, basket.Total);
+        }
+
+        [Fact]
         public void ShouldTotalWithVat()
         {
             var basket = new Basket();
@@ -49,7 +64,7 @@ namespace Test.Unit.Commerce
             basket.Add(apple);
             basket.Add(banana);
 
-            Assert.Equal(72.88, basket.TotalWithVat);
+            Assert.Equal(new Money(72.89), basket.TotalWithVat);
         }
     }
 }
