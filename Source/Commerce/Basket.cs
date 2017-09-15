@@ -15,9 +15,7 @@ namespace Commerce
 
         public int Count => items.Count;
 
-        public Money Total => items
-            .Select(item => item.Cost)
-            .Aggregate(Money.Zero, (left, right) => left + right);
+        public Money Total => items.Sum(item => item.Cost);
 
         public Money TotalWithVat => Total * 1.25;
     }
