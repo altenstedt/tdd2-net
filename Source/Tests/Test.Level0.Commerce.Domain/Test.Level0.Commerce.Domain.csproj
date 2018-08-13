@@ -13,11 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Commerce\Commerce.csproj" />
+    <ProjectReference Include="..\..\Commerce.Domain\Commerce.Domain.csproj" />
   </ItemGroup>
-
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.DotNet.Watcher.Tools" Version="2.0.0" />
-  </ItemGroup>
-
 </Project>

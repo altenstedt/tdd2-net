@@ -3,9 +3,19 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+# Do not commit the requests.http file since it typically will
+# contain passwords and sensitive information.
+requests.http
+
 # We do not want to add the environment specific settings file to git
 # since they will contain secrets.
 appsettings.*.json
+testsettings.*.json
+
+# There is no point in committing the .vscode folder since this
+# repository is not for a team, and it clutters the git status
+# for individuals if we do not ignore these files
+.vscode/
 
 # User-specific files
 *.suo

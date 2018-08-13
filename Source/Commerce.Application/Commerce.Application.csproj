@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Commerce.Domain\Commerce.Domain.csproj" />
+    <ProjectReference Include="..\Commerce.Storage\Commerce.Storage.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="AgileObjects.ReadableExpressions" Version="1.9.2" />
+    <PackageReference Include="automapper" Version="6.1.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+</Project>
