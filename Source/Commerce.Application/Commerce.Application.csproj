@@ -4,9 +4,9 @@
     <ProjectReference Include="..\Commerce.Storage\Commerce.Storage.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="AgileObjects.ReadableExpressions" Version="1.9.2" />
-    <PackageReference Include="automapper" Version="6.1.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
+    <PackageReference Include="AgileObjects.ReadableExpressions" Version="1.12.1" />
+    <PackageReference Include="automapper" Version="7.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
