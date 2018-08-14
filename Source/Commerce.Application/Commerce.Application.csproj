@@ -6,6 +6,7 @@
   <ItemGroup>
     <PackageReference Include="AgileObjects.ReadableExpressions" Version="1.12.1" />
     <PackageReference Include="automapper" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.6" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
   </ItemGroup>
   <PropertyGroup>

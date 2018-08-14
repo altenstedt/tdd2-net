@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Commerce.Domain;
-using Newtonsoft.Json;
 
 namespace Commerce.Application
 {
@@ -24,9 +23,7 @@ namespace Commerce.Application
             var response = await httpClient.GetAsync(uri);
             response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
-
-            var dataContracts = JsonConvert.DeserializeObject<IEnumerable<WarehouseProductDataContract>>(content);
+            var dataContracts = await response.Content.ReadAsAsync<IEnumerable<WarehouseProductDataContract>>();
 
             var result = AutoMapperConfiguration.Mapper.Map<IEnumerable<Product>>(dataContracts);
 
@@ -38,9 +35,7 @@ namespace Commerce.Application
             var response = await httpClient.GetAsync(new Uri(uri, $"{id}"));
             response.EnsureSuccessStatusCode();
 
-            var content = await response.Content.ReadAsStringAsync();
-
-            var dataContracts = JsonConvert.DeserializeObject<WarehouseProductDataContract>(content);
+            var dataContracts = await response.Content.ReadAsAsync<WarehouseProductDataContract>();
 
             var result = AutoMapperConfiguration.Mapper.Map<Product>(dataContracts);
 
