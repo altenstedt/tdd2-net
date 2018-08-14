@@ -42,6 +42,17 @@ namespace Commerce.Application
             return result;
         }
 
+        public async Task<bool> Exists(int id)
+        {
+            var message = new HttpRequestMessage(HttpMethod.Head, new Uri(uri, $"{id}"));
+
+            var response = await httpClient.SendAsync(message);
+
+            // If the item does not exist, the endpoint is expected to return a 404.
+            // Redirects (30x) is not supported.
+            return response.IsSuccessStatusCode;
+        }
+
         internal class WarehouseProductDataContract
         {
             public int Id { get; set; }

@@ -36,7 +36,16 @@ namespace Commerce.Storage.Repositories
 
             var cursor = await collection.FindAsync<BasketEntity>(new BsonDocument("_id", id));
 
-            return await cursor.FirstAsync();
+            return await cursor.FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> Exists(string id)
+        {
+            var collection = database.GetCollection<BasketEntity>("commerce");
+
+            var cursor = await collection.FindAsync<BasketEntity>(new BsonDocument("_id", id));
+
+            return await cursor.AnyAsync();
         }
 
         public async Task<BasketEntity> InsertOrUpdate(BasketEntity basket)

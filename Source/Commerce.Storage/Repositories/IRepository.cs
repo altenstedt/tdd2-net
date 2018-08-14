@@ -8,5 +8,7 @@ namespace Commerce.Storage.Repositories
         Task<BasketEntity> InsertOrUpdate(BasketEntity basket);
 
         Task<BasketEntity> GetById(string id);
+
+        Task<bool> Exists(string id);
     }
 }

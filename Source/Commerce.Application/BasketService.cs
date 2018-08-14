@@ -31,13 +31,18 @@ namespace Commerce.Application
             return result;
         }
 
-        public async Task<Basket> GetBasket(string id)
+        public async Task<Basket> GetById(string id)
         {
             var entity = await repository.GetById(id);
 
             var model = AutoMapperConfiguration.Mapper.Map<Basket>(entity);
 
             return model;
+        }
+
+        public async Task<bool> Exists(string id)
+        {
+            return await repository.Exists(id);
         }
 
         public async Task AddProductToBasket(string basketId, int productId)
@@ -51,14 +56,14 @@ namespace Commerce.Application
         {
             // Empty implementation, but this is where payment happens
 
-            var basket = await GetBasket(basketId);
+            var basket = await GetById(basketId);
             basket.Clear();
         }
 
         private async Task AddItemToBasket(string basketId, Product product)
         {
-            var basket = await GetBasket(basketId); 
-            
+            var basket = await GetById(basketId); 
+
             basket.Add(product);
 
             var entity = AutoMapperConfiguration.Mapper.Map<BasketEntity>(basket);

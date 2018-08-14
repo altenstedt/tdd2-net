@@ -9,10 +9,12 @@ namespace Commerce.Host.Controllers
     public class BasketsController : Controller
     {
         private readonly IBasketService basketService;
+        private readonly IProductService productService;
 
-        public BasketsController(IBasketService basketService)
+        public BasketsController(IBasketService basketService, IProductService productService)
         {
             this.basketService = basketService;
+            this.productService = productService;
 
             AutoMapperConfiguration.Configure();
         }
@@ -28,9 +30,14 @@ namespace Commerce.Host.Controllers
         }
 
         [HttpGet("{id}", Name = "GetById")]
-        public async Task<IActionResult> GetbyId(string id)
+        public async Task<IActionResult> GetById(string id)
         {
-            var basket = await basketService.GetBasket(id);
+            var basket = await basketService.GetById(id);
+
+            if (basket == null)
+            {
+                return NotFound();
+            }
 
             var result = AutoMapperConfiguration.Mapper.Map<BasketDataContract>(basket);
 
@@ -40,6 +47,11 @@ namespace Commerce.Host.Controllers
         [HttpPost("{basketId}")]
         public async Task<IActionResult> Checkout([FromQuery] string basketId, [FromBody] MoneyDataContract total)
         {
+            if (!await basketService.Exists(basketId))
+            {
+                return NotFound();
+            }
+
             await basketService.Checkout(basketId, total.Units, total.CurrencyCode);
 
             return NoContent();
@@ -48,6 +60,16 @@ namespace Commerce.Host.Controllers
         [HttpPost("{basketId}/product/{productId}")]
         public async Task<IActionResult> AddProductToBasket(string basketId, int productId)
         {
+            if (!await basketService.Exists(basketId))
+            {
+                return NotFound("Basket does not exists.");
+            }
+
+            if (!await productService.Exists(productId))
+            {
+                return NotFound("Product does not exists.");
+            }
+
             await basketService.AddProductToBasket(basketId, productId);
 
             return NoContent();

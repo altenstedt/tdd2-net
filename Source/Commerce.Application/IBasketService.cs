@@ -7,7 +7,9 @@ namespace Commerce.Application
     {
         Task<Basket> CreateBasket();
 
-        Task<Basket> GetBasket(string id);
+        Task<Basket> GetById(string id);
+
+        Task<bool> Exists(string id);
 
         Task AddProductToBasket(string basketId, int productId);
 

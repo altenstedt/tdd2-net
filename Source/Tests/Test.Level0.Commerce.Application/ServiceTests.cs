@@ -52,7 +52,7 @@ namespace Test.Level0.Commerce.Application
 
             var service = new BasketService(productServiceMock.Object, repositoryMock.Object);
 
-            await Assert.ThrowsAsync<InvalidOperationException>(() => service.GetBasket(null));
+            await Assert.ThrowsAsync<InvalidOperationException>(() => service.GetById(null));
 
             repositoryMock.VerifyAll();
         }

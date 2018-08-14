@@ -9,5 +9,7 @@ namespace Commerce.Application
         Task<IEnumerable<Product>> GetProducts();
 
         Task<Product> GetById(int id);
+
+        Task<bool> Exists(int id);
     }
 }

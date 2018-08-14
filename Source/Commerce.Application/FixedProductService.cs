@@ -23,5 +23,10 @@ namespace Commerce.Application
 
             return Task.FromResult(result);
         }
+
+        public Task<bool> Exists(int id)
+        {
+            return Task.FromResult(id == 42);
+        }
     }
 }
