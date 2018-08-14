@@ -12,7 +12,7 @@ namespace Test.Level2.Commerce
 {
     public class BasketTests
     {
-        private readonly Uri baseUri = new Uri("http://localhost:5000/");
+        private readonly Uri baseUri = new Uri("https://localhost:44394/");
         private readonly HttpClient client = new HttpClient();
 
         [Fact]
@@ -80,6 +80,7 @@ namespace Test.Level2.Commerce
         public async Task CanCheckoutBasket()
         {
             // Create your test here
+            await Task.CompletedTask;
         }
     }
 }
