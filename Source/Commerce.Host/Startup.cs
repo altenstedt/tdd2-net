@@ -1,4 +1,5 @@
-﻿using Commerce.Application;
+﻿using System.IO;
+using Commerce.Application;
 using Commerce.Storage;
 using Commerce.Storage.Repositories;
 using Microsoft.AspNetCore.Builder;
@@ -6,14 +7,23 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Remotion.Linq.Clauses;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Commerce.Host
 {
+    /// <summary>
+    /// Configuration and setup for starting the service.
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Gets the configuration for the service.
+        /// </summary>
         public IConfigurationRoot Configuration { get; }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -24,6 +34,9 @@ namespace Commerce.Host
             Configuration = builder.Build();
         }
 
+        /// <summary>
+        /// Add and configure services to the container.
+        /// </summary>
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<DatabaseOptions>(Configuration.GetSection("mongoDb"));
@@ -35,11 +48,29 @@ namespace Commerce.Host
             services.AddSingleton<IRepository, Repository>();
 
             services.AddMvc();
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Commerce API", Version = "v1" });
+
+                // Enable the Swagger UI at https://host/swagger/index.html
+                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Commerce.Host.xml");
+                c.IncludeXmlComments(filePath);
+            });
         }
 
+        /// <summary>
+        /// Configuration of the HTTP request pipeline.
+        /// </summary>
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseMvc();
+            app.UseSwagger();
+
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Commerce v1");
+            });
         }
     }
 }
