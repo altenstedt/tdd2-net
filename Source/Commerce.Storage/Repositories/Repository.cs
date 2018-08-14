@@ -23,10 +23,7 @@ namespace Commerce.Storage.Repositories
 
             var evidence = new PasswordEvidence(options.Password);
 
-            settings.Credentials = new List<MongoCredential>
-            {
-                new MongoCredential("SCRAM-SHA-1", identity, evidence)
-            };
+            settings.Credential = new MongoCredential("SCRAM-SHA-1", identity, evidence);
 
             var client = new MongoClient(settings);
 
