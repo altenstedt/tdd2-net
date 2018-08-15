@@ -7,6 +7,7 @@ using Xunit;
 
 namespace Test.Level0.Commerce.Application
 {
+    [Trait("Category", "L0")]
     public class AutoMapperConfigurationTests
     {
         private readonly RegionInfo SE = new RegionInfo("SE");

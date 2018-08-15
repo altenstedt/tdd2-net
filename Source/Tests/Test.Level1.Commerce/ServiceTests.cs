@@ -12,6 +12,7 @@ using Xunit;
 
 namespace Test.Level1.Commerce
 {
+    [Trait("Category", "L1")]
     public class ServiceTests
     {
         private readonly BasketService basketService;

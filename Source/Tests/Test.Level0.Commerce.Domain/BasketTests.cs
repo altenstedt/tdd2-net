@@ -4,6 +4,7 @@ using Xunit;
 
 namespace Test.Level0.Commerce.Domain
 {
+    [Trait("Category", "L0")]
     public class BasketTests
     {
         private readonly RegionInfo SE = new RegionInfo("SE");

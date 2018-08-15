@@ -10,6 +10,7 @@ using Xunit;
 
 namespace Test.Level2.Commerce
 {
+    [Trait("Category", "L2")]
     public class BasketTests
     {
         private readonly Uri baseUri = new Uri("https://localhost:44394/");

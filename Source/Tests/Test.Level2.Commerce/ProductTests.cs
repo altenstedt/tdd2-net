@@ -10,6 +10,7 @@ using Xunit;
 
 namespace Test.Level2.Commerce
 {
+    [Trait("Category", "L2")]
     public class ProductTests
     {
         private readonly Uri baseUri = new Uri("http://localhost:5000/");
