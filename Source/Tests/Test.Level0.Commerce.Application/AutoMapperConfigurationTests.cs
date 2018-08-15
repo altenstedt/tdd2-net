@@ -35,7 +35,7 @@ namespace Test.Level0.Commerce.Application
             var model = AutoMapperConfiguration.Mapper.Map<Basket>(entity);
 
             Assert.Equal(Id, model.Id);
-            Assert.Equal(1, model.Products.Count());
+            Assert.Single(model.Products);
             Assert.Equal(1, model.Count);
             Assert.Equal(new Money(42.0, SE), model.Total);
         }
@@ -52,7 +52,7 @@ namespace Test.Level0.Commerce.Application
             var entity = AutoMapperConfiguration.Mapper.Map<BasketEntity>(model);
 
             Assert.Equal(model.Id, entity.Id);
-            Assert.Equal(1, entity.Items.Count());
+            Assert.Single(entity.Items);
             Assert.Equal(4200, entity.Items.Single().Cost.Units);
             Assert.Equal("SEK", entity.Items.Single().Cost.CurrencyCode);
         }
