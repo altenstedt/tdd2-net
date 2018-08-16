@@ -1,7 +1,9 @@
 ﻿{
-  "databaseName": "course",
-  "host": "tdd2.documents.azure.com",
-  "port": 10255,
-  "username": "<db username>",
-  "password": "<db password>"
+  "mongoDb": {
+    "databaseName": "course",
+    "host": "tdd2.documents.azure.com",
+    "port": 10255,
+    "username": "<db username>",
+    "password": "<db password>"
+  }
 }

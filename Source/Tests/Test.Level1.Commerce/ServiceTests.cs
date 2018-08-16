@@ -1,12 +1,9 @@
-using System;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Commerce.Application;
 using Commerce.Domain;
-using Commerce.Storage;
 using Commerce.Storage.Repositories;
-using Microsoft.Extensions.Configuration;
 using Moq;
 using Xunit;
 
@@ -20,34 +17,9 @@ namespace Test.Level1.Commerce
 
         public ServiceTests()
         {
-            // Set the environment variable to VALUE and create a file testsettings.VALUE.json
-            // with the settings that are valid for your environment.  For example:
-            // 
-            // export TDD2_TEST_ENVIRONMENT=qa
-            // 
-            // and create a file testsettings.qa.json with the secrets for your QA database.
-            var environment = Environment.GetEnvironmentVariable("TDD2_TEST_ENVIRONMENT");
+            var databaseOptions = new ConfigurableDatabaseOptions();
 
-            // Watch our when adding support for environment variables using
-            // AddEnvironmentVariables().  For example, a typical Windows client will
-            // have USERNAME defined to the logged on account name, which might
-            // conflict with your application settings.
-            var builder = new ConfigurationBuilder()
-                .AddJsonFile("testsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"testsettings.{environment}.json", optional: true);
-
-            var configuration = builder.Build();
-
-            var options = new DatabaseOptions
-            {
-                DatabaseName = configuration["databaseName"],
-                Host = configuration["host"],
-                Port = int.Parse(configuration["port"]),
-                Username = configuration["username"],
-                Password = configuration["password"]
-            };
-
-            var repository = new Repository(options);
+            var repository = new Repository(databaseOptions.Options);
 
             var productServiceMock = new Mock<IProductService>(MockBehavior.Strict);
             productServiceMock
