@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Commerce.Host.DataContracts;
-using Newtonsoft.Json;
+using Microsoft.Rest.Azure;
 using Xunit;
 
 namespace Test.Level2.Commerce
@@ -13,13 +13,12 @@ namespace Test.Level2.Commerce
     [Trait("Category", "L2")]
     public class BasketTests
     {
-        private readonly Uri baseUri = new Uri("https://localhost:44394/");
-        private readonly HttpClient client = new HttpClient();
+        private readonly HttpClient client = new ConfigurableHttpClient();
 
         [Fact]
         public async Task CanCreateBasket()
         {
-            var response = await client.PostAsync(new Uri(baseUri, "baskets"), new StringContent(string.Empty));
+            var response = await client.PostAsync("baskets", new StringContent(string.Empty));
 
             Assert.Equal(HttpStatusCode.Created, response.StatusCode);
 
@@ -31,7 +30,7 @@ namespace Test.Level2.Commerce
         [Fact]
         public async Task CanGetBasket()
         {
-            var postResponse = await client.PostAsync(new Uri(baseUri, "baskets"), new StringContent(string.Empty));
+            var postResponse = await client.PostAsync("baskets", new StringContent(string.Empty));
             postResponse.EnsureSuccessStatusCode();
 
             var response = await client.GetAsync(postResponse.Headers.Location);
@@ -48,18 +47,18 @@ namespace Test.Level2.Commerce
         [Fact]
         public async Task CanAddProductToBasket()
         {
-            var getProductsResponse = await client.GetAsync(new Uri(baseUri, "products"));
+            var getProductsResponse = await client.GetAsync("products");
             getProductsResponse.EnsureSuccessStatusCode();
 
             var products = await getProductsResponse.Content.ReadAsAsync<IEnumerable<ProductDataContract>>();
             var product = products.First(); // First() will throw if empty (no need to assert Any())
 
-            var postResponse = await client.PostAsync(new Uri(baseUri, "baskets"), new StringContent(string.Empty));
+            var postResponse = await client.PostAsync("baskets", new StringContent(string.Empty));
             postResponse.EnsureSuccessStatusCode();
 
             var created = await postResponse.Content.ReadAsAsync<BasketDataContract>();
 
-            var addProductResponse = await client.PostAsync(new Uri(baseUri, $"baskets/{created.Id}/product/{product.Id}"), new StringContent(string.Empty));
+            var addProductResponse = await client.PostAsync($"baskets/{created.Id}/product/{product.Id}", new StringContent(string.Empty));
             addProductResponse.EnsureSuccessStatusCode();
 
             // We need to get the basket again after adding products
