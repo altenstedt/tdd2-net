@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using Commerce.Application;
 using Commerce.Storage;
 using Commerce.Storage.Repositories;
@@ -42,8 +43,14 @@ namespace Commerce.Host
         {
             services.Configure<DatabaseOptions>(Configuration.GetSection("mongoDb"));
 
+            services.Configure<ProductServiceOptions>(Configuration.GetSection("productService"));
+            services.AddSingleton(provider => provider.GetRequiredService<IOptions<ProductServiceOptions>>().Value);
+
+            var serviceProvider = services.BuildServiceProvider();
+            var productServiceOptions = serviceProvider.GetService<ProductServiceOptions>();
+
+            services.AddSingleton(GetProductService(productServiceOptions));
             services.AddSingleton<IBasketService, BasketService>();
-            services.AddSingleton<IProductService, ProductService>();
 
             services.AddSingleton(provider => provider.GetRequiredService<IOptions<DatabaseOptions>>().Value);
             services.AddSingleton<IRepository, Repository>();
@@ -72,6 +79,21 @@ namespace Commerce.Host
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Commerce v1");
             });
+        }
+
+        private IProductService GetProductService(ProductServiceOptions options)
+        {
+            switch (options.Service.ToLowerInvariant())
+            {
+                case "memory":
+                    return new InMemoryProductService();
+
+                case "production":
+                    return new ProductService();
+
+                default:
+                    throw new ArgumentException(nameof(options));
+            }
         }
     }
 }

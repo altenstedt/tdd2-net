@@ -6,7 +6,7 @@ using Commerce.Domain;
 
 namespace Commerce.Application
 {
-    public class FixedProductService : IProductService
+    public class InMemoryProductService : IProductService
     {
         private readonly RegionInfo SE = new RegionInfo("SE");
 
