@@ -2,10 +2,6 @@ namespace Commerce.Storage.Entities
 {
     public class MoneyEntity
     {
-        public MoneyEntity()
-        {
-        }
-
         public MoneyEntity(long units, string currencyCode)
         {
             Units = units;

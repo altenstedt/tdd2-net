@@ -12,7 +12,7 @@ namespace Commerce.Application
 
         public Task<IEnumerable<Product>> GetProducts()
         {
-            var result = new Product[] { new Product(42, "Apple", new Money(13.76, SE)), new Product(42, "Banana", new Money(44.55, SE)) };
+            var result = new[] { new Product(42, "Apple", new Money(13.76, SE)), new Product(42, "Banana", new Money(44.55, SE)) };
 
             return Task.FromResult(result.AsEnumerable());
         }

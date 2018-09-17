@@ -62,7 +62,7 @@ namespace Commerce.Host
                 c.SwaggerDoc("v1", new Info { Title = "Commerce API", Version = "v1" });
 
                 // Enable the Swagger UI at https://host/swagger/index.html
-                var filePath = Path.Combine(System.AppContext.BaseDirectory, "Commerce.Host.xml");
+                var filePath = Path.Combine(AppContext.BaseDirectory, "Commerce.Host.xml");
                 c.IncludeXmlComments(filePath);
             });
         }

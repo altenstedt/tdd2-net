@@ -35,7 +35,7 @@ namespace Test.Level0.Commerce.Domain
         }
 
         [Fact]
-        public void ShouldContainMutlipleItemsWhenAddingManyOfOneProduct()
+        public void ShouldContainMultipleItemsWhenAddingManyOfOneProduct()
         {
             var basket = new Basket();
 

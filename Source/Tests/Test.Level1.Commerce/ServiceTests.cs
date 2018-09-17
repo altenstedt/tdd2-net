@@ -24,7 +24,7 @@ namespace Test.Level1.Commerce
             var productServiceMock = new Mock<IProductService>(MockBehavior.Strict);
             productServiceMock
                 .Setup(productService => productService.GetById(42))
-                .ReturnsAsync(new Product(42, "Product with difficult characaters: Ţ��", new Money(13.76, SE)));
+                .ReturnsAsync(new Product(42, "Product with difficult characters: Ţ��", new Money(13.76, SE)));
 
             basketService = new BasketService(productServiceMock.Object, repository);
         }
@@ -52,7 +52,7 @@ namespace Test.Level1.Commerce
             Assert.Equal(1, basket.Count);
             Assert.Equal(new Money(13.76, SE), basket.Total);
             Assert.Equal(new Money(13.76, SE) * 1.25, basket.TotalWithVat);
-            Assert.Equal("Product with difficult characaters: Ţ��", basket.Products.Single().Name);
+            Assert.Equal("Product with difficult characters: Ţ��", basket.Products.Single().Name);
         }
 
         [Fact]

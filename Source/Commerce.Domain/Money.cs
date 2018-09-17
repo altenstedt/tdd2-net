@@ -7,10 +7,10 @@ namespace Commerce.Domain
     /// Represents money, in a specified currency.
     /// </summary>
     /// <remarks>
-    /// Money objects in two different currencies cannot be added or substracted,
+    /// Money objects in two different currencies cannot be added or subtracted,
     /// and will always compare to false.
     /// 
-    /// Money support a "none" value, using the <see cref="None"/> proprety.  "None"
+    /// Money support a "none" value, using the <see cref="None"/> property.  "None"
     /// represents "no money", has no currency, and can be added and subtracted to any 
     /// other currency.
     /// 
@@ -34,15 +34,9 @@ namespace Commerce.Domain
         {
             Units = units;
 
-            if (string.IsNullOrEmpty(currencyCode))
-            {
-                // This indicates "zero" money, with null currency info
-                CurrencyInfo = null;
-            }
-            else
-            {
-                CurrencyInfo = CurrencyInfo.Get(currencyCode);
-            }
+            CurrencyInfo = string.IsNullOrEmpty(currencyCode)
+                ? null // This indicates "zero" money, with null currency info
+                : CurrencyInfo.Get(currencyCode);
         }
 
         /// <summary>

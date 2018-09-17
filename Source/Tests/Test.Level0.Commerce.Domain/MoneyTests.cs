@@ -53,13 +53,13 @@ namespace Test.Level0.Commerce.Domain
         }
 
         [Fact]
-        public void ShouldSubstractNoneToOtherNone()
+        public void ShouldSubtractNoneToOtherNone()
         {
             Assert.Equal(Money.None, Money.None - Money.None);
         }
 
         [Fact]
-        public void ShouldSubstractNoneToOtherCurrency()
+        public void ShouldSubtractNoneToOtherCurrency()
         {
             Assert.Equal(new Money(12.34, SE), new Money(12.34, SE) - Money.None);
             Assert.Equal(Money.Zero(new RegionInfo("SE")), Money.Zero(new RegionInfo("SE")) - Money.None);
@@ -77,7 +77,7 @@ namespace Test.Level0.Commerce.Domain
         }
 
         [Fact]
-        public void ShouldSubstractTwoValues() {
+        public void ShouldSubtractTwoValues() {
             Assert.Equal(new Money(107.66, SE), new Money(123.0, SE) - new Money(15.34, SE));
         }
 
