@@ -85,7 +85,7 @@ Once you have created settings for your MongoDB instance, you can run
 the level 1 tests only from the command prompt:
 
 ```
-dotnet test --filter Category=L1
+dotnet test --filter Category=L1 .\Source\Tests\Test.Level1.Commerce\
 ```
 
 ## Level 2 tests
@@ -94,13 +94,17 @@ The full system tests require a running service, so you need to start
 the service first:
 
 ```
-dotnet run --urls=http://localhost:5000 --project ./Source/Commerce.Host
+dotnet run --urls=http://localhost:5000 --project ./Source/Commerce.Host --configuration Release
 ```
+
+Notice that we select the `Release` configuration in the example
+above, so that the assemblies that we are running are not interfering
+with building the tests.
 
 Then you can run the tests:
 
 ```
-dotnet test --filter Category=L1
+dotnet test --filter Category=L2 .\Source\Tests\Test.Level2.Commerce\
 ```
 
 Note that you also need to update the application settings with values
