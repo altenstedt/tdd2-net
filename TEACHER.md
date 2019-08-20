@@ -96,16 +96,29 @@ Functions to do this:
                 "response.headers.Content-Type": "application/json"
             }
         },
-        "ProductById": {
+        "Apple": {
             "matchCondition": {
-                "route": "/products/{id}",
+                "route": "/products/1",
                 "methods": [
                     "GET"
                 ]
             },
             "responseOverrides": {
                 "response.statusCode": "200",
-                "response.body": "{ \"id\": \"{id}\", \"name\": \"Apple\", \"cost\": { \"units\": 1376, \"decimalPlaces\": 2, \"currencyCode\": \"SEK\"}}",
+                "response.body": "{ \"id\": \"1\", \"name\": \"Apple\", \"cost\": { \"units\": 1376, \"decimalPlaces\": 2, \"currencyCode\": \"SEK\"}}",
+                "response.headers.Content-Type": "application/json"
+            }
+        },
+        "Banana": {
+            "matchCondition": {
+                "route": "/products/2",
+                "methods": [
+                    "GET"
+                ]
+            },
+            "responseOverrides": {
+                "response.statusCode": "200",
+                "response.body": "{ \"id\": \"2\", \"name\": \"Banana\", \"cost\": { \"units\": 4455, \"decimalPlaces\": 2, \"currencyCode\": \"SEK\"}}",
                 "response.headers.Content-Type": "application/json"
             }
         }
